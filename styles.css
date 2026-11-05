@@ -1,0 +1,506 @@
+/* ==========================================================================
+   DESIGN TOKENS & OKLCH COLOR SYSTEM (WCAG 2.2 AA / EAA COMPLIANT)
+   ========================================================================== */
+:root {
+  /* OKLCH Raw Channels: Lightness Chroma Hue */
+  --canvas-deep: 0.13 0.015 260;
+  --canvas-surface: 0.19 0.02 260;
+  --canvas-elevated: 0.26 0.025 260;
+  --canvas-glass: 0.18 0.02 260;
+
+  --content-primary: 0.98 0.005 260;    /* Contrast ratio > 15:1 */
+  --content-secondary: 0.80 0.015 260;  /* Contrast ratio > 8.5:1 */
+  --content-muted: 0.64 0.02 260;      /* Contrast ratio > 4.8:1 (Passes AA) */
+  --content-inverse: 0.13 0.015 260;
+
+  --brand-cyan: 0.78 0.16 215;         /* Electric Cyan / Primary */
+  --brand-purple: 0.68 0.22 305;       /* Vibrant Violet / Secondary */
+  --brand-coral: 0.74 0.18 45;         /* Warm Coral */
+
+  --border-subtle: 0.28 0.02 260;
+  --border-strong: 0.42 0.03 260;
+  --border-glow: 0.78 0.16 215;
+
+  --focus-ring: 0.85 0.18 215;
+
+  /* Fluid Spacing Variables */
+  --fluid-gutter: clamp(1rem, 0.5rem + 3vw, 4rem);
+  --header-height: clamp(4rem, 3.5rem + 1.5vw, 5.5rem);
+
+  /* Micro-interaction Spring Timing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Base resets & typography rendering */
+html {
+  scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: oklch(var(--canvas-deep));
+  color: oklch(var(--content-primary));
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   WCAG 2.2 AA / EAA ACCESSIBILITY SPECIFICATIONS
+   ========================================================================== */
+
+/* Skip to main content link for keyboard users */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 1.5rem;
+  z-index: 99999;
+  background: oklch(var(--brand-cyan));
+  color: oklch(var(--content-inverse));
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  transition: top 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 1.5rem;
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+/* Strict Focus Visible Requirement (WCAG 2.4.11 / 2.4.13) */
+:focus-visible {
+  outline: 3px solid oklch(var(--focus-ring)) !important;
+  outline-offset: 3px !important;
+  border-radius: 4px;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  box-shadow: 0 0 0 2px oklch(var(--canvas-deep)), 0 0 0 5px oklch(var(--focus-ring));
+}
+
+/* Accessible minimum target size rule (WCAG 2.5.8 Target Size: >= 24x24px / 44x44px for touch) */
+button, a, input, select, textarea, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reduced motion media query (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .preloader-monogram path {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* High Contrast & Forced Colors Mode (Windows High Contrast Mode) */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+  }
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   CUSTOM CURSOR (MICRO-INTERACTIONS)
+   ========================================================================== */
+#custom-cursor-dot,
+#custom-cursor-ring {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  will-change: transform, width, height, background-color, border-color;
+  transition: opacity 0.3s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+#custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: oklch(var(--brand-cyan));
+  mix-blend-mode: difference;
+}
+
+#custom-cursor-ring {
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid oklch(var(--brand-cyan) / 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: oklch(var(--content-inverse));
+  text-transform: uppercase;
+  transition: width 0.25s var(--ease-out-expo),
+              height 0.25s var(--ease-out-expo),
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              border-radius 0.25s ease;
+}
+
+/* Morph states for cursor */
+.cursor-hover #custom-cursor-ring {
+  width: 54px;
+  height: 54px;
+  border-color: oklch(var(--brand-purple));
+  background-color: oklch(var(--brand-purple) / 0.15);
+}
+
+.cursor-view #custom-cursor-ring {
+  width: 80px;
+  height: 80px;
+  background-color: oklch(var(--brand-cyan));
+  border-color: transparent;
+  color: oklch(var(--content-inverse));
+}
+
+.cursor-drag #custom-cursor-ring {
+  width: 72px;
+  height: 72px;
+  background-color: oklch(var(--brand-purple));
+  border-color: transparent;
+  color: #fff;
+}
+
+/* Disable custom cursor on touch/pointer coarse devices */
+@media (pointer: coarse) {
+  #custom-cursor-dot,
+  #custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   PRELOADER (PURE CSS ANIMATION & TRANSITION)
+   ========================================================================== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: oklch(var(--canvas-deep));
+  transition: transform 0.9s var(--ease-in-out-smooth), opacity 0.8s ease;
+  will-change: transform, opacity;
+}
+
+#preloader.is-loaded {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.preloader-monogram path {
+  stroke-dasharray: 450;
+  stroke-dashoffset: 450;
+  animation: drawStroke 2s var(--ease-out-expo) forwards;
+}
+
+@keyframes drawStroke {
+  0% { stroke-dashoffset: 450; opacity: 0; }
+  20% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+.preloader-bar-fill {
+  animation: fillBar 1.8s var(--ease-out-expo) forwards;
+}
+
+@keyframes fillBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ==========================================================================
+   PURE CSS TEXT REVEAL & STAGGERED FADE-UP
+   ========================================================================== */
+.text-reveal-wrapper {
+  overflow: hidden;
+  display: block;
+}
+
+.text-reveal-item {
+  display: inline-block;
+  transform: translateY(120%);
+  opacity: 0;
+  animation: textReveal 1s var(--ease-out-expo) forwards;
+}
+
+.text-reveal-item.delay-1 { animation-delay: 0.15s; }
+.text-reveal-item.delay-2 { animation-delay: 0.3s; }
+.text-reveal-item.delay-3 { animation-delay: 0.45s; }
+
+@keyframes textReveal {
+  0% { transform: translateY(120%); opacity: 0; }
+  100% { transform: translateY(0%); opacity: 1; }
+}
+
+/* Scroll Triggered Staggered Fade Up */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   HORIZONTAL SCROLL SHOWCASE (DESKTOP PINNING & MOBILE NATIVE TOUCH)
+   ========================================================================== */
+.horizontal-scroll-container {
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  /* Desktop: sticky parent provides vertical scroll distance */
+  .horizontal-scroll-container {
+    height: 400vh; /* scroll budget */
+  }
+
+  .horizontal-scroll-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .horizontal-track {
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    padding-left: clamp(2rem, 5vw, 6rem);
+    padding-right: clamp(2rem, 5vw, 6rem);
+    width: max-content;
+    will-change: transform;
+    transition: transform 0.12s linear;
+  }
+}
+
+@media (max-width: 1023px) {
+  /* Mobile & Tablet: native fluid touch swipe with snap */
+  .horizontal-scroll-sticky {
+    padding: 1.5rem 0;
+  }
+  .horizontal-track {
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1.5rem;
+    padding: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .project-card-item {
+    scroll-snap-align: center;
+    flex: 0 0 85vw;
+    max-width: 420px;
+  }
+}
+
+/* Light Parallax layer inside Project Cards */
+.project-card-thumb {
+  transition: transform 0.4s var(--ease-out-expo);
+  transform: scale(1.01);
+}
+
+.project-card-item:hover .project-card-thumb {
+  transform: scale(1.06);
+}
+
+/* ==========================================================================
+   FULLSCREEN PROJECT OVERLAY MODAL
+   ========================================================================== */
+#project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: oklch(0.1 0.015 260 / 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+
+#project-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#project-modal-content {
+  transform: scale(0.94) translateY(24px);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+#project-modal.is-open #project-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   MAGNETIC BUTTON & INTERACTIVE STATES (WCAG 2.2 SPECIFIED)
+   ========================================================================== */
+.btn-magnetic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s var(--ease-out-expo),
+              box-shadow 0.25s ease,
+              background-color 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease;
+  will-change: transform;
+}
+
+/* Primary Button States */
+.btn-primary {
+  background-color: oklch(var(--brand-cyan));
+  color: oklch(var(--content-inverse));
+  border: 1px solid transparent;
+  padding: 0.875rem 2rem;
+}
+
+.btn-primary:hover {
+  background-color: oklch(0.85 0.17 215);
+  box-shadow: 0 0 24px oklch(var(--brand-cyan) / 0.45);
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
+  background-color: oklch(0.70 0.15 215);
+}
+
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: oklch(var(--content-muted));
+}
+
+/* Secondary Button States */
+.btn-secondary {
+  background-color: oklch(var(--canvas-surface));
+  color: oklch(var(--content-primary));
+  border: 1px solid oklch(var(--border-strong));
+  padding: 0.875rem 2rem;
+}
+
+.btn-secondary:hover {
+  border-color: oklch(var(--brand-cyan));
+  background-color: oklch(var(--canvas-elevated));
+  box-shadow: 0 0 20px oklch(var(--brand-cyan) / 0.2);
+}
+
+.btn-secondary:active {
+  transform: scale(0.96);
+}
+
+/* Dynamic CV Timeline styling */
+.timeline-stem {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.75rem;
+  width: 2px;
+  background: linear-gradient(180deg, oklch(var(--brand-cyan)), oklch(var(--brand-purple)), oklch(var(--border-subtle)));
+}
+
+@media (min-width: 768px) {
+  .timeline-stem {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   LANGUAGE TOGGLE (VI / EN)
+   ========================================================================== */
+.lang-toggle-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background-color: oklch(var(--canvas-surface));
+  border: 1px solid oklch(var(--border-strong));
+  border-radius: 9999px;
+  padding: 3px;
+  cursor: pointer;
+  user-select: none;
+  min-height: 38px;
+  min-width: 82px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.lang-toggle-btn:hover {
+  border-color: oklch(var(--brand-cyan));
+  box-shadow: 0 0 16px oklch(var(--brand-cyan) / 0.25);
+}
+
+.lang-toggle-pill {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background-color: oklch(var(--brand-cyan));
+  border-radius: 9999px;
+  transition: transform 0.28s var(--ease-out-expo);
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.lang-label-vi,
+.lang-label-en {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  transition: color 0.2s ease;
+  pointer-events: none;
+}
+
+

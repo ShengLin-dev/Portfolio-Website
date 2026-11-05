@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio cá nhân tương tác cao của Yi Sheng - Chuyên gia UI/UX & Kỹ sư Front-end bậc cao. Tuân thủ tiêu chuẩn EAA & WCAG 2.2 AA.">
+  <title>Yi Sheng — Chuyên gia UI/UX & Kỹ sư Front-end bậc cao</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        screens: {
+          'xs': '390px',
+          'sm': '640px',
+          'md': '768px',
+          'lg': '1024px',
+          'xl': '1280px',
+          '2xl': '1440px',
+        },
+        extend: {
+          colors: {
+            canvas: {
+              deep: 'oklch(var(--canvas-deep) / <alpha-value>)',
+              surface: 'oklch(var(--canvas-surface) / <alpha-value>)',
+              elevated: 'oklch(var(--canvas-elevated) / <alpha-value>)',
+              glass: 'oklch(var(--canvas-glass) / <alpha-value>)',
+            },
+            content: {
+              primary: 'oklch(var(--content-primary) / <alpha-value>)',
+              secondary: 'oklch(var(--content-secondary) / <alpha-value>)',
+              muted: 'oklch(var(--content-muted) / <alpha-value>)',
+              inverse: 'oklch(var(--content-inverse) / <alpha-value>)',
+            },
+            brand: {
+              cyan: 'oklch(var(--brand-cyan) / <alpha-value>)',
+              purple: 'oklch(var(--brand-purple) / <alpha-value>)',
+              coral: 'oklch(var(--brand-coral) / <alpha-value>)',
+            },
+            border: {
+              subtle: 'oklch(var(--border-subtle) / <alpha-value>)',
+              strong: 'oklch(var(--border-strong) / <alpha-value>)',
+              glow: 'oklch(var(--border-glow) / <alpha-value>)',
+            },
+            focus: {
+              ring: 'oklch(var(--focus-ring) / <alpha-value>)',
+            },
+            status: {
+              success: 'oklch(0.72 0.17 142)',
+              warning: 'oklch(0.75 0.16 65)',
+              error: 'oklch(0.65 0.22 25)',
+            }
+          },
+          fontSize: {
+            'fluid-display': ['clamp(2.75rem, 1.8rem + 4.2vw, 5.75rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
+            'fluid-h1': ['clamp(2.25rem, 1.6rem + 3.2vw, 4.25rem)', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+            'fluid-h2': ['clamp(1.75rem, 1.35rem + 2vw, 3rem)', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+            'fluid-h3': ['clamp(1.35rem, 1.15rem + 1.1vw, 2rem)', { lineHeight: '1.3', letterSpacing: '-0.015em' }],
+            'fluid-h4': ['clamp(1.15rem, 1.05rem + 0.5vw, 1.5rem)', { lineHeight: '1.4' }],
+            'fluid-body': ['clamp(1rem, 0.95rem + 0.25vw, 1.1875rem)', { lineHeight: '1.65' }],
+            'fluid-body-sm': ['clamp(0.875rem, 0.85rem + 0.15vw, 1rem)', { lineHeight: '1.55' }],
+            'fluid-caption': ['clamp(0.75rem, 0.72rem + 0.1vw, 0.875rem)', { lineHeight: '1.4', letterSpacing: '0.04em' }],
+          },
+          spacing: {
+            'fluid-xs': 'clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem)',
+            'fluid-sm': 'clamp(0.75rem, 0.65rem + 0.5vw, 1.25rem)',
+            'fluid-md': 'clamp(1.25rem, 1rem + 1.25vw, 2.5rem)',
+            'fluid-lg': 'clamp(2rem, 1.5rem + 2.5vw, 4.5rem)',
+            'fluid-xl': 'clamp(3.5rem, 2.5rem + 5vw, 8rem)',
+            'fluid-gutter': 'clamp(1rem, 0.5rem + 3vw, 4rem)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheets (OKLCH Tokens, Fluid Layout, Animations) -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Internationalization (i18n) Module -->
+  <script src="i18n.js"></script>
+</head>
+<body class="bg-canvas-deep text-content-primary antialiased selection:bg-brand-cyan selection:text-content-inverse overflow-x-hidden">
+
+  <!-- VÙNG THÔNG BÁO CHO TRÌNH ĐỌC MÀN HÌNH (WCAG 4.1.3 ARIA LIVE) -->
+  <div id="a11y-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- PHÍM TẮT ĐIỀU HƯỚNG NHANH CHO NGƯỜI DÙNG BÀN PHÍM (WCAG 2.4.1 BYPASS BLOCKS) -->
+  <a href="#main-content" class="skip-to-content focus:not-sr-only" data-i18n="a11y.skipToContent">
+    Chuyển đến nội dung chính (Skip to content)
+  </a>
+
+  <!-- ==========================================================================
+       1. MÀN HÌNH TẢI TRANG (PRELOADER)
+       ========================================================================== -->
+  <aside id="preloader" aria-label="Màn hình đang tải dữ liệu" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    <div class="flex flex-col items-center gap-6">
+      <!-- Monogram SVG với hoạt ảnh vẽ nét CSS thuần -->
+      <div class="relative w-24 h-24 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-14 h-14 hover:scale-110 transition-transform duration-300">
+      <!-- Định dạng phông chữ chung: In đậm, nghiêng hiện đại -->
+      <g font-family="sans-serif" font-weight="900" font-size="70" font-style="italic">
+    
+      <!-- LỚP 1: Chữ S nằm dưới cùng (Màu Tím Neon) -->
+      <text x="55" y="75" text-anchor="middle" fill="oklch(0.68 0.22 305)">S</text>
+    
+      <!-- LỚP 2: "Viền tàng hình" của chữ Y -->
+      <!-- QUAN TRỌNG: Thay mã #111827 bằng mã màu nền thanh Header của bạn -->
+      <text x="40" y="65" text-anchor="middle" fill="none" stroke="#111827" stroke-width="8" stroke-linejoin="round">Y</text>
+    
+      <!-- LỚP 3: Chữ Y nằm trên cùng (Màu Cyan) -->
+      <text x="40" y="65" text-anchor="middle" fill="oklch(0.76 0.16 215)">Y</text>
+    
+      </g>
+</svg>
+      </div>
+
+      <div class="text-center">
+        <p class="text-sm tracking-widest text-content-secondary uppercase font-mono mb-2" data-i18n="preloader.subtitle">Yi Sheng • Portfolio</p>
+        <span id="preloader-counter" class="text-3xl font-bold font-mono text-brand-cyan">0%</span>
+      </div>
+
+      <!-- Thanh tiến trình tải trang -->
+      <div class="w-48 h-1 bg-canvas-elevated rounded-full overflow-hidden border border-border-subtle">
+        <div class="preloader-bar-fill h-full bg-brand-cyan"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       CON TRỎ CHUỘT TÙY CHỈNH (CUSTOM CURSOR)
+       ========================================================================== -->
+  <div id="custom-cursor-dot" aria-hidden="true"></div>
+  <div id="custom-cursor-ring" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       THANH ĐIỀU HƯỚNG CHÍNH (STICKY ACCESSIBLE NAVBAR)
+       ========================================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 w-full mx-0 px-0 rounded-none md:rounded-xl md:mx-auto md:px-6 md:mt-4 md:max-w-7xl transition-all duration-300 bg-canvas-deep/80 backdrop-blur-xl border-b md:border border-border-subtle shadow-card-elevated">
+    <div class="w-full px-4 sm:px-6 md:px-0 h-16 md:h-20 flex items-center justify-between">
+      <!-- Logo thương hiệu -->
+      <a href="#hero" class="group flex items-center gap-3 text-content-primary no-underline focus-visible:ring-2" data-cursor="pointer" data-i18n-attr="aria-label:nav.logoAria" aria-label="Yi Sheng - Quay lại đầu trang">
+        <span class="w-10 h-10 rounded-xl bg-canvas-elevated border border-border-strong flex items-center justify-center font-mono font-bold text-brand-cyan group-hover:border-brand-cyan transition-colors">
+          YS
+        </span>
+        <div class="hidden sm:block">
+          <p class="text-sm font-bold tracking-tight leading-none text-content-primary">Yi Sheng</p>
+          <span class="text-xs text-content-muted font-mono" data-i18n="nav.logoRole">UI/UX & Front-end Architect</span>
+        </div>
+      </a>
+
+      <!-- Menu liên kết điều hướng (Desktop) -->
+      <nav class="hidden md:flex" aria-label="Thanh điều hướng chính">
+        <ul class="flex items-center gap-1 sm:gap-2 md:gap-6 list-none m-0 p-0 text-sm font-medium">
+          <li>
+            <a href="#projects" class="px-3 py-2 rounded-lg text-content-secondary hover:text-brand-cyan transition-colors" data-cursor="pointer" data-i18n="nav.projects">Dự án</a>
+          </li>
+          <li>
+            <a href="#about" class="px-3 py-2 rounded-lg text-content-secondary hover:text-brand-cyan transition-colors" data-cursor="pointer" data-i18n="nav.about">Về tôi</a>
+          </li>
+          <li>
+            <a href="#timeline" class="px-3 py-2 rounded-lg text-content-secondary hover:text-brand-cyan transition-colors" data-cursor="pointer" data-i18n="nav.timeline">Kinh nghiệm</a>
+          </li>
+          <li>
+            <a href="#contact" class="px-3 py-2 rounded-lg text-content-secondary hover:text-brand-cyan transition-colors" data-cursor="pointer" data-i18n="nav.contact">Liên hệ</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Nhóm Hành động Header: Chuyển ngôn ngữ & Tải CV & Nút Hamburger -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- NÚT CHUYỂN ĐỔI NGÔN NGỮ (VI / EN TOGGLE BUTTON) -->
+        <button type="button" class="lang-toggle-btn magnetic-target focus-visible:ring-2" role="button" aria-label="Chuyển đổi ngôn ngữ sang Tiếng Anh (Current: Tiếng Việt)" data-cursor="pointer" tabindex="0">
+          <span class="lang-toggle-pill" aria-hidden="true"></span>
+          <span class="lang-label-vi text-content-inverse font-bold">VI</span>
+          <span class="lang-label-en text-content-muted">EN</span>
+        </button>
+
+        <!-- Nút Tải CV trên Header -->
+        <a href="resume-yi-sheng.pdf" download="Resume-Yi-Sheng.pdf" class="btn-magnetic resume-download-btn px-4 py-2 rounded-full text-xs font-semibold bg-canvas-surface border border-border-strong hover:border-brand-cyan text-brand-cyan hidden sm:inline-flex items-center gap-2" data-cursor="pointer" data-i18n-attr="aria-label:nav.downloadCvAria" aria-label="Tải xuống bản CV đầy đủ định dạng PDF (919 KB)">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span data-i18n="nav.downloadCv">Tải CV (PDF)</span>
+        </a>
+
+        <!-- NÚT HAMBURGER MOBILE (BLOCK MD:HIDDEN) -->
+        <button id="mobile-menu-toggle" type="button" class="block md:hidden p-2.5 rounded-xl bg-canvas-surface border border-border-strong text-content-primary hover:text-brand-cyan hover:border-brand-cyan transition-colors focus-visible:ring-2" aria-controls="mobile-menu" aria-expanded="false" data-i18n-attr="aria-label:nav.openMenuAria" aria-label="Mở menu điều hướng" data-cursor="pointer">
+          <svg id="hamburger-icon" class="w-6 h-6 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MOBILE MENU OVERLAY & DRAWER (TAILWIND CSS & WCAG 2.2 AA)
+       ========================================================================== -->
+  <div id="mobile-menu" class="fixed inset-0 z-50 md:hidden invisible pointer-events-none transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-heading" aria-hidden="true">
+    <!-- Backdrop Overlay -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-canvas-deep/80 backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Drawer Panel (Trượt mượt từ phải sang) -->
+    <nav id="mobile-menu-drawer" class="fixed top-0 right-0 bottom-0 w-[85vw] max-w-sm bg-canvas-surface border-l border-border-subtle shadow-2xl flex flex-col justify-between p-6 transform translate-x-full transition-transform duration-300 ease-in-out pointer-events-auto overflow-y-auto" aria-label="Menu điều hướng di động">
+      <!-- Drawer Top -->
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-border-subtle">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-xl bg-canvas-elevated border border-border-strong flex items-center justify-center font-mono font-bold text-brand-cyan">
+              YS
+            </span>
+            <div>
+              <p id="mobile-menu-heading" class="text-sm font-bold text-content-primary leading-tight">Yi Sheng</p>
+              <span class="text-[11px] text-content-muted font-mono" data-i18n="nav.logoRole">UI/UX & Front-end Architect</span>
+            </div>
+          </div>
+
+          <!-- Nút Đóng Menu -->
+          <button id="mobile-menu-close" type="button" class="w-10 h-10 rounded-xl bg-canvas-elevated border border-border-subtle hover:border-brand-cyan text-content-primary flex items-center justify-center transition-colors focus-visible:ring-2" data-i18n-attr="aria-label:nav.closeMenuAria" aria-label="Đóng menu điều hướng" data-cursor="pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Danh sách Liên kết Di động -->
+        <ul class="flex flex-col gap-2 py-6 list-none m-0 p-0 text-base font-semibold">
+          <li>
+            <a href="#projects" class="mobile-nav-link flex items-center justify-between px-4 py-3 rounded-xl text-content-secondary hover:text-brand-cyan hover:bg-canvas-elevated transition-colors" data-cursor="pointer">
+              <span data-i18n="nav.projects">Dự án</span>
+              <span class="text-xs text-content-muted font-mono" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a href="#about" class="mobile-nav-link flex items-center justify-between px-4 py-3 rounded-xl text-content-secondary hover:text-brand-cyan hover:bg-canvas-elevated transition-colors" data-cursor="pointer">
+              <span data-i18n="nav.about">Về tôi</span>
+              <span class="text-xs text-content-muted font-mono" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a href="#timeline" class="mobile-nav-link flex items-center justify-between px-4 py-3 rounded-xl text-content-secondary hover:text-brand-cyan hover:bg-canvas-elevated transition-colors" data-cursor="pointer">
+              <span data-i18n="nav.timeline">Kinh nghiệm</span>
+              <span class="text-xs text-content-muted font-mono" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="mobile-nav-link flex items-center justify-between px-4 py-3 rounded-xl text-content-secondary hover:text-brand-cyan hover:bg-canvas-elevated transition-colors" data-cursor="pointer">
+              <span data-i18n="nav.contact">Liên hệ</span>
+              <span class="text-xs text-content-muted font-mono" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Drawer Bottom -->
+      <div class="pt-6 border-t border-border-subtle space-y-4">
+        <a href="resume-yi-sheng.pdf" download="Resume-Yi-Sheng.pdf" class="mobile-nav-link resume-download-btn w-full py-3.5 px-4 rounded-xl text-sm font-semibold bg-canvas-elevated border border-border-strong hover:border-brand-cyan text-brand-cyan flex items-center justify-center gap-2 transition-colors" data-cursor="pointer" data-i18n-attr="aria-label:nav.downloadCvAria" aria-label="Tải xuống bản CV đầy đủ định dạng PDF (919 KB)">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span data-i18n="nav.downloadCv">Tải CV (PDF)</span>
+        </a>
+
+        <p class="text-[11px] text-content-muted font-mono text-center">
+          European Accessibility Act &bull; WCAG 2.2 AA
+        </p>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ==========================================================================
+       NỘI DUNG CHÍNH (MAIN CONTENT)
+       ========================================================================== -->
+  <main id="main-content" class="pt-20 md:pt-28">
+
+    <!-- ========================================================================
+         2. HERO SECTION (ĐIỂM CHẠM ĐẦU TIÊN)
+         ======================================================================== -->
+    <section id="hero" class="min-h-[calc(100dvh-5rem)] flex flex-col justify-center relative px-fluid-gutter overflow-hidden" aria-labelledby="hero-heading">
+      <!-- Nền phát sáng Ambient Blur (Pure CSS) -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[35rem] h-[35rem] bg-brand-cyan/10 rounded-full blur-[140px] pointer-events-none -z-10" aria-hidden="true"></div>
+      <div class="absolute top-1/3 right-10 w-[25rem] h-[25rem] bg-brand-purple/10 rounded-full blur-[120px] pointer-events-none -z-10" aria-hidden="true"></div>
+
+      <div class="max-w-6xl mx-auto w-full py-12">
+        <!-- Huy hiệu trạng thái tiếp nhận dự án -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-content-secondary mb-8 scroll-reveal is-revealed">
+          <span class="w-2.5 h-2.5 rounded-full bg-status-success animate-pulse" aria-hidden="true"></span>
+          <span data-i18n="hero.badge">Sẵn sàng cho các dự án mới & Hợp tác chiến lược</span>
+        </div>
+
+        <!-- Tiêu đề chính dạng Text Reveal thuần CSS -->
+        <h1 id="hero-heading" class="text-fluid-display font-extrabold tracking-tight text-content-primary mb-6">
+          <span class="text-reveal-wrapper font-bold">
+            <span class="text-reveal-item delay-1 pb-8" data-i18n="hero.titleLine1">Sáng tạo trải nghiệm số</span>
+          </span>
+          <span class="text-reveal-wrapper font-bold">
+            <span class="text-reveal-item delay-2 pb-8 text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-coral" data-i18n="hero.titleLine2">
+              Tiếp cận & Chuẩn hóa
+            </span>
+          </span>
+        </h1>
+
+        <!-- Câu tóm tắt vị thế nghề nghiệp -->
+        <p class="text-fluid-body text-content-secondary max-w-3xl mb-10 leading-relaxed scroll-reveal delay-2" data-i18n="hero.description">
+          Tôi là <strong class="text-content-primary font-semibold">Yi Sheng</strong>, Chuyên gia UI/UX kiêm Kỹ sư Front-end. Tôi đồng hành cùng các sản phẩm số quy mô lớn bằng sự kết hợp giữa <em>Tư duy Thiết kế Hệ thống (Design Systems)</em>, chuẩn mực tiếp cận quốc tế <strong class="text-brand-cyan">EAA & WCAG 2.2 AA</strong>, và kỹ thuật mã hóa CSS/Tailwind.
+        </p>
+
+        <!-- Nhóm nút Call-To-Action tương tác từ tính -->
+        <div class="flex flex-wrap items-center gap-4 sm:gap-6 scroll-reveal delay-3">
+          <a href="#projects" class="btn-magnetic btn-primary magnetic-target shadow-neon-cyan" data-cursor="pointer">
+            <span data-i18n="hero.ctaProjects">Khám phá Dự án</span>
+            <svg class="w-5 h-5 ml-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </a>
+
+          <a href="resume-yi-sheng.pdf" download="Resume-Yi-Sheng.pdf" class="btn-magnetic btn-secondary magnetic-target resume-download-btn" data-cursor="pointer" data-i18n-attr="aria-label:hero.ctaCvAria" aria-label="Tải hồ sơ năng lực đầy đủ dạng PDF">
+            <svg class="w-5 h-5 mr-2 text-brand-cyan shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <span data-i18n="hero.ctaCv">Tải CV cá nhân (PDF)</span>
+          </a>
+        </div>
+
+        <!-- Chỉ số tin cậy nhanh (Trust Metrics) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-16 border-t border-border-subtle mt-16 text-left">
+          <div>
+            <p class="text-fluid-h3 font-bold text-brand-cyan font-mono leading-none mb-1" data-i18n="hero.metrics.years">06+</p>
+            <span class="text-xs text-content-muted" data-i18n="hero.metrics.yearsLabel">Năm kinh nghiệm chuyên sâu</span>
+          </div>
+          <div>
+            <p class="text-fluid-h3 font-bold text-brand-purple font-mono leading-none mb-1" data-i18n="hero.metrics.a11y">100%</p>
+            <span class="text-xs text-content-muted" data-i18n="hero.metrics.a11yLabel">Tuân thủ WCAG 2.2 AA / EAA</span>
+          </div>
+          <div>
+            <p class="text-fluid-h3 font-bold text-brand-coral font-mono leading-none mb-1" data-i18n="hero.metrics.users">40M+</p>
+            <span class="text-xs text-content-muted" data-i18n="hero.metrics.usersLabel">Lượt người dùng tương tác UI</span>
+          </div>
+          <div>
+            <p class="text-fluid-h3 font-bold text-content-primary font-mono leading-none mb-1" data-i18n="hero.metrics.cls">0.0ms</p>
+            <span class="text-xs text-content-muted" data-i18n="hero.metrics.clsLabel">Layout shift (CLS tuyệt đối 0)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         3. KHÔNG GIAN TRƯNG BÀY DỰ ÁN (IMMERSIVE PROJECT SHOWCASE)
+         Horizontal Scroll khi cuộn dọc trên Desktop & Touch Swipe trên Mobile
+         ======================================================================== -->
+    <section id="projects" class="horizontal-scroll-container py-16" aria-labelledby="showcase-heading">
+      <div class="horizontal-scroll-sticky">
+        <div class="max-w-7xl mx-auto w-full px-fluid-gutter mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-brand-cyan" data-i18n="showcase.tag">Selected Works (2024 - 2026)</span>
+            <h2 id="showcase-heading" class="text-fluid-h2 font-bold text-content-primary tracking-tight" data-i18n="showcase.heading">Không Gian Dự Án Nổi Bật</h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-xs text-content-muted font-mono hidden md:inline" data-i18n="showcase.scrollHint">Cuộn chuột để lướt ngang</span>
+            <!-- Thanh tiến trình cuộn ngang -->
+            <div class="w-32 h-1.5 bg-canvas-surface rounded-full overflow-hidden border border-border-subtle hidden md:block">
+              <div id="project-scroll-progress" class="h-full bg-brand-cyan transition-all duration-75" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Đường ray cuộn ngang (Horizontal Track) -->
+        <div class="horizontal-track" data-cursor="drag">
+
+          <!-- Card 1: Aura FinTech Design System -->
+          <article class="project-card-item w-[320px] sm:w-[420px] lg:w-[460px] shrink-0 bg-canvas-surface rounded-3xl p-6 border border-border-subtle hover:border-brand-cyan/60 transition-all duration-300 flex flex-col justify-between shadow-card-elevated" data-cursor="view">
+            <div>
+              <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-black border border-border-subtle mb-6">
+                <!-- Thumbnail minh hoạ với Parallax -->
+                <div class="project-card-thumb absolute inset-0 flex items-center justify-center p-6">
+                  <div class="w-full h-full rounded-xl bg-canvas-elevated/80 border border-brand-cyan/40 p-4 flex flex-col justify-between">
+                    <img data-i18n-attr="src:projects.project-1.image|alt:projects.project-1.title" 
+                    class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105 z-0" />
+                    <span class="text-xs font-mono text-content-muted z-10">OKLCH LCH(0.78 0.16 215)</span>
+                  </div>
+                </div>
+                <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-mono bg-canvas-deep/80 text-brand-cyan border border-brand-cyan/30">Enterprise FinTech</span>
+              </div>
+
+              <p class="text-xs font-mono text-content-muted uppercase mb-2">Design System / Web Platform</p>
+              <h3 class="text-fluid-h3 font-bold text-content-primary mb-3" data-i18n="projects.project-1.title">Aura Design System & FinTech NextGen</h3>
+              <p class="text-sm text-content-secondary line-clamp-3 mb-6" data-i18n="projects.project-1.cardDesc">
+                Kiến trúc hệ thống thiết kế ngân hàng số hiện đại ứng dụng không gian màu OKLCH, tích hợp Fluid Typography và chuẩn tiếp cận WCAG 2.2 AAA.
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between">
+              <span class="text-xs font-mono text-status-success font-semibold" data-i18n="showcase.metrics.devVelocity">+140% Dev Velocity</span>
+              <button type="button" class="btn-magnetic px-4 py-2 rounded-xl text-xs font-bold bg-canvas-elevated hover:bg-brand-cyan hover:text-content-inverse text-content-primary transition-colors" data-project-id="project-1" aria-haspopup="dialog" aria-label="Xem chi tiết dự án Aura Design System">
+                <span data-i18n="showcase.viewCaseStudy">Chi tiết Case Study &rarr;</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: Nova AI Health Companion -->
+          <article class="project-card-item w-[320px] sm:w-[420px] lg:w-[460px] shrink-0 bg-canvas-surface rounded-3xl p-6 border border-border-subtle hover:border-brand-purple/60 transition-all duration-300 flex flex-col justify-between shadow-card-elevated" data-cursor="view">
+            <div>
+              <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-purple-950 via-slate-900 to-black border border-border-subtle mb-6">
+                <div class="project-card-thumb absolute inset-0 flex items-center justify-center p-6">
+                  <div class="w-full h-full rounded-xl bg-canvas-elevated/80 border border-brand-purple/40 p-4 flex flex-col justify-between">
+                    <img data-i18n-attr="src:projects.project-2.image|alt:projects.project-2.title" 
+                         class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105 z-0" />
+                    <span class="text-xs font-mono text-content-muted z-10">Accessible Voice & Tactile UI</span>
+                  </div>
+                </div>
+                <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-mono bg-canvas-deep/80 text-brand-purple border border-brand-purple/30">AI Healthcare</span>
+              </div>
+
+              <p class="text-xs font-mono text-content-muted uppercase mb-2">Interactive Web App / AI UX</p>
+              <h3 class="text-fluid-h3 font-bold text-content-primary mb-3" data-i18n="projects.project-2.title">Nova AI Health Companion</h3>
+              <p class="text-sm text-content-secondary line-clamp-3 mb-6" data-i18n="projects.project-2.cardDesc">
+                Giao diện trợ lý y tế thông minh tối ưu cho bệnh nhân cao tuổi và người suy giảm thị lực, tuân thủ nghiêm ngặt chỉ dẫn tiếp cận EAA.
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between">
+              <span class="text-xs font-mono text-brand-purple font-semibold" data-i18n="showcase.metrics.activeUsers">300k+ Active Users</span>
+              <button type="button" class="btn-magnetic px-4 py-2 rounded-xl text-xs font-bold bg-canvas-elevated hover:bg-brand-purple hover:text-white text-content-primary transition-colors" data-project-id="project-2" aria-haspopup="dialog" aria-label="Xem chi tiết dự án Nova AI Health">
+                <span data-i18n="showcase.viewCaseStudy">Chi tiết Case Study &rarr;</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 3: Verve Spatial E-Commerce Platform -->
+          <article class="project-card-item w-[320px] sm:w-[420px] lg:w-[460px] shrink-0 bg-canvas-surface rounded-3xl p-6 border border-border-subtle hover:border-brand-coral/60 transition-all duration-300 flex flex-col justify-between shadow-card-elevated" data-cursor="view">
+            <div>
+              <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-amber-950 via-slate-900 to-black border border-border-subtle mb-6">
+                <div class="project-card-thumb absolute inset-0 flex items-center justify-center p-6">
+                  <div class="w-full h-full rounded-xl bg-canvas-elevated/80 border border-brand-coral/40 p-4 flex flex-col justify-between">
+                    <img data-i18n-attr="src:projects.project-3.image|alt:projects.project-3.title" 
+                         class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105 z-0" />
+                    <span class="text-xs font-mono text-content-muted z-10">Native Canvas & Zero Bloat</span>
+                  </div>
+                </div>
+                <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-mono bg-canvas-deep/80 text-brand-coral border border-brand-coral/30">Luxury Audio</span>
+              </div>
+
+              <p class="text-xs font-mono text-content-muted uppercase mb-2">Immersive Web / 3D Experience</p>
+              <h3 class="text-fluid-h3 font-bold text-content-primary mb-3" data-i18n="projects.project-3.title">Verve Spatial E-Commerce Platform</h3>
+              <p class="text-sm text-content-secondary line-clamp-3 mb-6" data-i18n="projects.project-3.cardDesc">
+                Nền tảng thương mại thiết bị âm thanh xa xỉ với hiệu ứng Parallax cuộn chiều sâu và chuyển động CSS mượt mà 120 FPS.
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between">
+              <span class="text-xs font-mono text-brand-coral font-semibold" data-i18n="showcase.metrics.timeOnPage">+220% Time On Page</span>
+              <button type="button" class="btn-magnetic px-4 py-2 rounded-xl text-xs font-bold bg-canvas-elevated hover:bg-brand-coral hover:text-content-inverse text-content-primary transition-colors" data-project-id="project-3" aria-haspopup="dialog" aria-label="Xem chi tiết dự án Verve Spatial E-Commerce">
+                <span data-i18n="showcase.viewCaseStudy">Chi tiết Case Study &rarr;</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 4: EcoTrack Sustainability Dashboard -->
+          <article class="project-card-item w-[320px] sm:w-[420px] lg:w-[460px] shrink-0 bg-canvas-surface rounded-3xl p-6 border border-border-subtle hover:border-brand-cyan/60 transition-all duration-300 flex flex-col justify-between shadow-card-elevated" data-cursor="view">
+            <div>
+              <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-950 via-slate-900 to-black border border-border-subtle mb-6">
+                <div class="project-card-thumb absolute inset-0 flex items-center justify-center p-6">
+                  <div class="w-full h-full rounded-xl bg-canvas-elevated/80 border border-status-success/40 p-4 flex flex-col justify-between">
+                    <img data-i18n-attr="src:projects.project-4.image|alt:projects.project-4.title" 
+                         class="rounded-lg w-full h-full object-cover transition-transform duration-500 hover:scale-105 z-0" />
+                    <span class="text-xs font-mono text-content-muted z-10">Real-time Energy Telemetry</span>
+                  </div>
+                </div>
+                <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-mono bg-canvas-deep/80 text-status-success border border-status-success/30">ESG SaaS</span>
+              </div>
+
+              <p class="text-xs font-mono text-content-muted uppercase mb-2">Data Visualization / Enterprise</p>
+              <h3 class="text-fluid-h3 font-bold text-content-primary mb-3" data-i18n="projects.project-4.title">EcoTrack Sustainability Dashboard</h3>
+              <p class="text-sm text-content-secondary line-clamp-3 mb-6" data-i18n="projects.project-4.cardDesc">
+                Bảng điều khiển trực quan hoá lượng phát thải và năng lượng tái tạo, cấu trúc thông tin hình kim tự tháp rõ ràng cho ban điều hành.
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-border-subtle flex items-center justify-between">
+              <span class="text-xs font-mono text-status-success font-semibold" data-i18n="showcase.metrics.realtimeSvg">Real-time SVG Charts</span>
+              <button type="button" class="btn-magnetic px-4 py-2 rounded-xl text-xs font-bold bg-canvas-elevated hover:bg-brand-cyan hover:text-content-inverse text-content-primary transition-colors" data-project-id="project-4" aria-haspopup="dialog" aria-label="Xem chi tiết dự án EcoTrack Dashboard">
+                <span data-i18n="showcase.viewCaseStudy">Chi tiết Case Study &rarr;</span>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         4. VỀ TÔI (ABOUT ME) - KỂ CHUYỆN TRỰC QUAN & PHƯƠNG PHÁP NGHIÊN CỨU
+         ======================================================================== -->
+    <section id="about" class="py-24 px-fluid-gutter border-t border-border-subtle bg-canvas-deep relative" aria-labelledby="about-heading">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Cột trái: Chân dung & Triết lý thiết kế -->
+          <div class="lg:col-span-5 space-y-6 scroll-reveal">
+            <span class="text-xs font-mono uppercase tracking-widest text-brand-cyan" data-i18n="about.tag">Design Philosophy</span>
+            <h2 id="about-heading" class="text-fluid-h2 font-bold text-content-primary tracking-tight" data-i18n="about.heading">
+              Giao thoa giữa Thẩm mỹ Cảm xúc & Kỹ thuật Chuẩn xác
+            </h2>
+            <p class="text-fluid-body text-content-secondary leading-relaxed" data-i18n="about.p1">
+              Tôi tin rằng một trải nghiệm web xuất sắc không chỉ nằm ở vẻ ngoài thu hút mà bắt nguồn từ <strong>khả năng tiếp cận bình đẳng (Universal Accessibility)</strong> và hiệu năng tải trang tức thì.
+            </p>
+            <p class="text-sm text-content-muted leading-relaxed" data-i18n="about.p2">
+              Khi xây dựng giao diện, tôi coi các tiêu chuẩn <strong>EAA (European Accessibility Act)</strong> và <strong>WCAG 2.2 AA</strong> là nguyên lý kiến trúc cơ bản ngay từ nét vẽ đầu tiên, chứ không phải một danh sách kiểm tra sau cùng.
+            </p>
+
+            <!-- Thẻ cam kết chất lượng -->
+            <div class="p-6 rounded-2xl bg-canvas-surface border border-border-subtle space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-cyan/20 text-brand-cyan flex items-center justify-center font-bold">
+                  ✓
+                </div>
+                <h4 class="font-bold text-content-primary" data-i18n="about.commitmentTitle">Cam kết Tiếp cận & Tương thích</h4>
+              </div>
+              <ul class="text-xs text-content-secondary space-y-2 font-mono list-none p-0 m-0">
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan"></span>
+                  <span data-i18n="about.commitment1">Bảng màu OKLCH tương phản tối thiểu 4.5:1 (AA) & 7:1 (AAA)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan"></span>
+                  <span data-i18n="about.commitment2">Điều hướng bàn phím 100% không bẫy tiêu điểm (No keyboard traps)</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan"></span>
+                  <span data-i18n="about.commitment3">Hỗ trợ đầy đủ prefers-reduced-motion & Windows High Contrast</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Cột phải: Quy trình nghiên cứu Double Diamond & Kỹ năng cốt lõi -->
+          <div class="lg:col-span-7 space-y-8 scroll-reveal delay-1">
+            <h3 class="text-fluid-h3 font-bold text-content-primary" data-i18n="about.processHeading">Quy Trình Thiết Kế & Thực Thi (Double Diamond Framework)</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Giai đoạn 1: Discover -->
+              <div class="p-5 rounded-2xl bg-canvas-surface border border-border-subtle hover:border-brand-cyan transition-colors">
+                <span class="text-xs font-mono text-brand-cyan font-bold" data-i18n="about.step1Tag">01 / DISCOVER</span>
+                <h4 class="text-base font-bold text-content-primary mt-1 mb-2" data-i18n="about.step1Title">Thấu cảm & Nghiên cứu</h4>
+                <p class="text-xs text-content-secondary leading-relaxed" data-i18n="about.step1Desc">
+                  Phỏng vấn người dùng, phân tích hành vi với trợ lý tiếp cận (Screen Readers), và thiết lập ma trận yêu cầu EAA.
+                </p>
+              </div>
+
+              <!-- Giai đoạn 2: Define -->
+              <div class="p-5 rounded-2xl bg-canvas-surface border border-border-subtle hover:border-brand-purple transition-colors">
+                <span class="text-xs font-mono text-brand-purple font-bold" data-i18n="about.step2Tag">02 / DEFINE</span>
+                <h4 class="text-base font-bold text-content-primary mt-1 mb-2" data-i18n="about.step2Title">Kiến trúc Thông tin (IA)</h4>
+                <p class="text-xs text-content-secondary leading-relaxed" data-i18n="about.step2Desc">
+                  Thiết lập Wireframe phân tầng trên Desktop (1440px) & Mobile (390px), xây dựng Design Token trong không gian màu OKLCH.
+                </p>
+              </div>
+
+              <!-- Giai đoạn 3: Develop -->
+              <div class="p-5 rounded-2xl bg-canvas-surface border border-border-subtle hover:border-brand-coral transition-colors">
+                <span class="text-xs font-mono text-brand-coral font-bold" data-i18n="about.step3Tag">03 / DEVELOP</span>
+                <h4 class="text-base font-bold text-content-primary mt-1 mb-2" data-i18n="about.step3Title">Mã hóa Front-end Tối ưu</h4>
+                <p class="text-xs text-content-secondary leading-relaxed" data-i18n="about.step3Desc">
+                  Triển khai Tailwind CSS, fluid typography clamp(), hoạt ảnh CSS thuần tăng tốc phần cứng (GPU accelerated).
+                </p>
+              </div>
+
+              <!-- Giai đoạn 4: Deliver -->
+              <div class="p-5 rounded-2xl bg-canvas-surface border border-border-subtle hover:border-status-success transition-colors">
+                <span class="text-xs font-mono text-status-success font-bold" data-i18n="about.step4Tag">04 / DELIVER</span>
+                <h4 class="text-base font-bold text-content-primary mt-1 mb-2" data-i18n="about.step4Title">Kiểm thử Tiếp cận & Đóng gói</h4>
+                <p class="text-xs text-content-secondary leading-relaxed" data-i18n="about.step4Desc">
+                  Đánh giá Axe DevTools, Lighthouse 100/100, kiểm thử bàn phím thực tế và phát hành sản phẩm không phụ thuộc thư viện nặng.
+                </p>
+              </div>
+            </div>
+
+            <!-- Hệ sinh thái công nghệ (Core Tech Stack) -->
+            <div class="pt-6">
+              <h4 class="text-sm font-mono uppercase text-content-muted mb-4 tracking-wider" data-i18n="about.stackHeading">Hệ Sinh Thái Kỹ Thuật (Tech Stack & Toolkit)</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-brand-cyan">Tailwind CSS (Fluid Utilities)</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-brand-cyan">OKLCH Modern Color Space</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-brand-cyan">Pure CSS Hardware Animations</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-brand-purple">Figma (Variables & Auto-layout)</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-brand-purple">Design Systems Architecture</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-brand-coral">WCAG 2.2 AA / EAA Compliance</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-brand-coral">Native JavaScript (Vanilla ESNext)</span>
+                <span class="px-3.5 py-1.5 rounded-full bg-canvas-surface border border-border-subtle text-xs font-mono text-status-success">Performance Budget (0ms CLS)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         5. DÒNG THỜI GIAN CV ĐỘNG (DYNAMIC CV TIMELINE & RESUME DOWNLOAD)
+         ======================================================================== -->
+    <section id="timeline" class="py-24 px-fluid-gutter border-t border-border-subtle bg-canvas-surface/40 relative" aria-labelledby="timeline-heading">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-12 scroll-reveal">
+          <span class="text-xs font-mono uppercase tracking-widest text-brand-cyan" data-i18n="timeline.tag">Career Path & Milestones</span>
+          <h2 id="timeline-heading" class="text-fluid-h2 font-bold text-content-primary tracking-tight" data-i18n="timeline.heading">Hành Trình Sự Nghiệp & Học Vấn</h2>
+          <p class="text-sm text-content-secondary mt-3" data-i18n="timeline.subtitle">
+            Theo dõi quá trình tích lũy kinh nghiệm thiết kế, kiến trúc kỹ thuật và các chứng chỉ chuyên môn quốc tế.
+          </p>
+
+          <!-- Bộ lọc danh mục dòng thời gian -->
+          <div class="inline-flex p-1.5 rounded-full bg-canvas-surface border border-border-subtle mt-8" role="group" aria-label="Bộ lọc dòng thời gian">
+            <button type="button" class="timeline-filter-btn px-5 py-2 rounded-full text-xs transition-all bg-brand-cyan text-content-inverse font-bold" data-filter="all" aria-pressed="true" data-i18n="timeline.filterAll">
+              Tất cả (All)
+            </button>
+            <button type="button" class="timeline-filter-btn px-5 py-2 rounded-full text-xs transition-all bg-canvas-surface text-content-secondary hover:text-content-primary" data-filter="experience" aria-pressed="false" data-i18n="timeline.filterExperience">
+              Kinh nghiệm (Work)
+            </button>
+            <button type="button" class="timeline-filter-btn px-5 py-2 rounded-full text-xs transition-all bg-canvas-surface text-content-secondary hover:text-content-primary" data-filter="education" aria-pressed="false" data-i18n="timeline.filterEducation">
+              Học vấn & Chứng chỉ
+            </button>
+          </div>
+        </div>
+
+        <!-- Cột mốc Timeline -->
+        <div class="relative py-8">
+          <!-- Trục dây thời gian (Stem line) -->
+          <div class="timeline-stem" aria-hidden="true"></div>
+
+          <div class="space-y-12">
+            
+            <!-- Mục 1: Principal UI/UX Architect -->
+            <div class="timeline-item relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-12 items-center" data-category="experience">
+              <!-- Nút tròn kết nối -->
+              <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-canvas-deep border-4 border-brand-cyan z-10 shadow-neon-cyan" aria-hidden="true"></div>
+              
+              <div class="md:text-right pr-6">
+                <span class="text-xs font-mono text-brand-cyan font-bold" data-i18n="timeline.item1Date">2023 — Hiện tại (Present)</span>
+                <h3 class="text-fluid-h3 font-bold text-content-primary mt-1" data-i18n="timeline.item1Title">Lead UI/UX & Front-end Architect</h3>
+                <p class="text-sm font-semibold text-content-secondary" data-i18n="timeline.item1Company">Aura Global FinTech Lab</p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-canvas-surface border border-border-subtle mt-3 md:mt-0 shadow-lg">
+                <p class="text-sm text-content-secondary leading-relaxed" data-i18n="timeline.item1Desc">
+                  Chịu trách nhiệm kiến trúc Design System đa nền tảng cho 12 ứng dụng tài chính ngân hàng. Thiết lập chuẩn tiếp cận WCAG 2.2 Level AA trên toàn bộ mã nguồn front-end.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-cyan">Tailwind CSS</span>
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-cyan">OKLCH Colors</span>
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-cyan">WCAG 2.2 AA</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mục 2: Senior Interaction Designer -->
+            <div class="timeline-item relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-12 items-center" data-category="experience">
+              <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-canvas-deep border-4 border-brand-purple z-10 shadow-neon-purple" aria-hidden="true"></div>
+              
+              <div class="md:order-2 pl-6">
+                <span class="text-xs font-mono text-brand-purple font-bold" data-i18n="timeline.item2Date">2021 — 2023</span>
+                <h3 class="text-fluid-h3 font-bold text-content-primary mt-1" data-i18n="timeline.item2Title">Senior Interaction Designer & Front-end</h3>
+                <p class="text-sm font-semibold text-content-secondary" data-i18n="timeline.item2Company">Nexus Digital Studio</p>
+              </div>
+
+              <div class="md:order-1 p-6 rounded-2xl bg-canvas-surface border border-border-subtle mt-3 md:mt-0 shadow-lg md:text-right">
+                <p class="text-sm text-content-secondary leading-relaxed" data-i18n="timeline.item2Desc">
+                  Thiết kế giao diện người dùng tương tác cao, nguyên mẫu vi tương tác (micro-interactions) và tối ưu hóa hiệu năng render Canvas/CSS.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-4 md:justify-end">
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-purple">Micro-interactions</span>
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-purple">Fluid Layout</span>
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-purple">Figma Pro</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mục 3: Cử nhân Công nghệ Thông tin -->
+            <div class="timeline-item relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-12 items-center" data-category="education">
+              <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-canvas-deep border-4 border-brand-coral z-10" aria-hidden="true"></div>
+              
+              <div class="md:text-right pr-6">
+                <span class="text-xs font-mono text-brand-coral font-bold" data-i18n="timeline.item3Date">2018 — 2022</span>
+                <h3 class="text-fluid-h3 font-bold text-content-primary mt-1" data-i18n="timeline.item3Title">Cử nhân Kỹ thuật Phần mềm</h3>
+                <p class="text-sm font-semibold text-content-secondary" data-i18n="timeline.item3Company">Đại học Bách Khoa / CNTT</p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-canvas-surface border border-border-subtle mt-3 md:mt-0 shadow-lg">
+                <p class="text-sm text-content-secondary leading-relaxed" data-i18n="timeline.item3Desc">
+                  Tốt nghiệp loại Xuất sắc với đồ án nghiên cứu chuyên sâu: <em>"Kiến trúc giao diện web có thể tiếp cận phổ quát (Universal Web Accessibility Architecture)"</em>.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-coral">GPA 3.85 / 4.0</span>
+                  <span class="text-xs px-2.5 py-1 rounded bg-canvas-elevated font-mono text-brand-coral">EAA Certified</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mục 4: Chứng chỉ Quốc tế IAAP CPACC -->
+            <div class="timeline-item relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-12 items-center" data-category="education">
+              <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-canvas-deep border-4 border-status-success z-10" aria-hidden="true"></div>
+              
+              <div class="md:order-2 pl-6">
+                <span class="text-xs font-mono text-status-success font-bold" data-i18n="timeline.item4Date">2023 — 2026</span>
+                <h3 class="text-fluid-h3 font-bold text-content-primary mt-1" data-i18n="timeline.item4Title">Chứng chỉ Chuyên gia Tiếp cận Quốc tế (IAAP CPACC)</h3>
+                <p class="text-sm font-semibold text-content-secondary" data-i18n="timeline.item4Company">International Association of Accessibility Professionals</p>
+              </div>
+
+              <div class="md:order-1 p-6 rounded-2xl bg-canvas-surface border border-border-subtle mt-3 md:mt-0 shadow-lg md:text-right">
+                <p class="text-sm text-content-secondary leading-relaxed" data-i18n="timeline.item4Desc">
+                  Chứng chỉ chuyên gia đánh giá và thực thi luật tiếp cận kỹ thuật số EAA, tiêu chuẩn WCAG 2.2 Cấp độ AA & AAA cho các hệ thống phần mềm quy mô lớn.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Khối CTA tải CV nổi bật -->
+        <div class="mt-16 p-8 md:p-10 rounded-3xl bg-gradient-to-r from-canvas-surface via-canvas-elevated to-canvas-surface border border-brand-cyan/40 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 scroll-reveal">
+          <div class="flex items-center gap-5">
+            <div class="w-16 h-16 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan flex items-center justify-center shrink-0">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-fluid-h3 font-bold text-content-primary" data-i18n="timeline.cvCardTitle">Tải Hồ Sơ Năng Lực (Resume PDF)</h3>
+              <p class="text-xs text-content-secondary mt-1" data-i18n="timeline.cvCardMeta">Định dạng PDF • Cập nhật Tháng 11/2026 • Dung lượng: 919 KB • Tuân thủ chuẩn tiếp cận ATS</p>
+            </div>
+          </div>
+
+          <a href="resume-yi-sheng.pdf" download="Resume-Yi-Sheng.pdf" class="btn-magnetic btn-primary magnetic-target resume-download-btn shrink-0" data-cursor="pointer" data-i18n-attr="aria-label:timeline.cvCardCtaAria" aria-label="Tải xuống tập tin CV của Yi Sheng định dạng PDF dung lượng 919 KB">
+            <svg class="w-5 h-5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            <span data-i18n="timeline.cvCardCta">Tải Tệp CV Ngay</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         6. CỔNG KẾT NỐI & FOOTER (CONNECT PORTAL & FOOTER)
+         ======================================================================== -->
+    <section id="contact" class="py-24 px-fluid-gutter border-t border-border-subtle bg-canvas-deep relative" aria-labelledby="contact-heading">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          <!-- Thông tin liên hệ & Mạng xã hội từ tính -->
+          <div class="lg:col-span-5 space-y-8 scroll-reveal">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-widest text-brand-cyan" data-i18n="contact.tag">Get In Touch</span>
+              <h2 id="contact-heading" class="text-fluid-h2 font-bold text-content-primary tracking-tight mt-1" data-i18n="contact.heading">
+                Khởi đầu một dự án mang tính đột phá
+              </h2>
+              <p class="text-fluid-body text-content-secondary mt-4 leading-relaxed" data-i18n="contact.subtitle">
+                Bạn đang tìm kiếm một chuyên gia định hình kiến trúc trải nghiệm số, xây dựng hệ thống thiết kế hoặc kiểm thử đạt chuẩn EAA / WCAG 2.2? Hãy gửi lời chào ngay hôm nay.
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <a href="mailto:contact@yisheng.dev" class="flex items-center justify-start gap-4 p-4 rounded-2xl bg-canvas-surface border border-border-subtle hover:border-brand-cyan transition-colors group" data-cursor="pointer" data-i18n-attr="aria-label:contact.emailAria" aria-label="Gửi email đến contact@yisheng.dev">
+                <div class="w-12 h-12 rounded-xl bg-canvas-elevated flex items-center justify-center text-brand-cyan group-hover:bg-brand-cyan group-hover:text-content-inverse transition-colors">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="text-xs font-mono text-content-muted" data-i18n="contact.emailLabel">Email Trực tiếp</span>
+                  <p class="text-sm font-bold text-content-primary">contact@yisheng.dev</p>
+                </div>
+              </a>
+
+              <div class="flex items-center gap-4 p-4 rounded-2xl bg-canvas-surface border border-border-subtle">
+                <div class="w-12 h-12 rounded-xl bg-canvas-elevated flex items-center justify-center text-brand-purple">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="text-xs font-mono text-content-muted" data-i18n="contact.locationLabel">Khu vực làm việc</span>
+                  <p class="text-sm font-bold text-content-primary" data-i18n="contact.locationVal">Taipei City, Taiwan (Remote Worldwide)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Liên kết mạng xã hội với hiệu ứng Hover từ tính -->
+            <div>
+              <p class="text-xs font-mono text-content-muted uppercase tracking-wider mb-3" data-i18n="contact.socialHeading">Mạng xã hội & Nền tảng chuyên môn</p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="magnetic-target flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-canvas-surface border border-border-subtle text-xs font-mono text-content-secondary hover:text-brand-cyan hover:border-brand-cyan transition-colors" data-cursor="pointer" data-i18n-attr="aria-label:contact.socialGithubAria" aria-label="Trang GitHub cá nhân của Yi Sheng (mở trong tab mới)">
+                  <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                  </svg>
+                  <span>GitHub ↗</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="magnetic-target flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-canvas-surface border border-border-subtle text-xs font-mono text-content-secondary hover:text-brand-cyan hover:border-brand-cyan transition-colors" data-cursor="pointer" data-i18n-attr="aria-label:contact.socialLinkedinAria" aria-label="Trang LinkedIn của Yi Sheng (mở trong tab mới)">
+                  <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+                  </svg>
+                  <span>LinkedIn ↗</span>
+                </a>
+                <a href="https://figma.com" target="_blank" rel="noopener noreferrer" class="magnetic-target flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-canvas-surface border border-border-subtle text-xs font-mono text-content-secondary hover:text-brand-purple hover:border-brand-purple transition-colors" data-cursor="pointer" data-i18n-attr="aria-label:contact.socialFigmaAria" aria-label="Cộng đồng Figma của Yi Sheng (mở trong tab mới)">
+                  <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/>
+                  </svg>
+                  <span>Figma Community ↗</span>
+                </a>
+                <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="magnetic-target flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-canvas-surface border border-border-subtle text-xs font-mono text-content-secondary hover:text-brand-coral hover:border-brand-coral transition-colors" data-cursor="pointer" data-i18n-attr="aria-label:contact.socialDribbbleAria" aria-label="Dribbble Showcase của Yi Sheng (mở trong tab mới)">
+                  <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 0 1 1.93 5.312c-.44-.09-2.39-.46-4.63-.12-.08-.18-.16-.36-.25-.53-.41-.85-.88-1.67-1.39-2.43 2.6-1.07 4.1-2.07 4.34-2.232zM12 3.518c2.25 0 4.31.86 5.86 2.27-.19.14-1.58 1.08-4.07 2.1-1.31-2.36-2.73-4.14-2.92-4.37.37-.08.75-.12 1.13-.12v.12zm-2.88.66c.16.2.146 1.88 2.76 4.19-.53 1.4-1.12 2.72-1.74 3.94-2.98-.87-5.59-.83-6.09-.81a8.535 8.535 0 0 1 5.07-7.32zm-5.6 9.42c.45-.02 2.65-.03 5.37.76-.71 1.93-1.5 3.65-2.37 5.06A8.528 8.528 0 0 1 3.52 13.6zm4.84 6.78c.84-1.34 1.6-3.01 2.3-4.88 2.47.69 4.68.42 5.05.37a8.513 8.513 0 0 1-7.35 4.51zm8.79-1.31c-.32.04-2.25.26-4.52-.39-.62-1.67-1.3-3.23-2.02-4.65 2.1-.34 3.9.01 4.31.09a8.49 8.49 0 0 1 2.23 4.95z"/>
+                  </svg>
+                  <span>Dribbble ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biểu mẫu gửi tin nhắn (Accessible Form với ARIA) -->
+          <div class="lg:col-span-7 p-8 rounded-3xl bg-canvas-surface border border-border-subtle scroll-reveal delay-1">
+            <h3 class="text-fluid-h3 font-bold text-content-primary mb-2" data-i18n="contact.formTitle">Gửi Tin Nhắn Nhanh</h3>
+            <p class="text-xs text-content-secondary mb-6" data-i18n="contact.formSubtitle">Mọi thông tin gửi đi đều được bảo mật và phản hồi nhanh chóng.</p>
+
+            <form id="contact-form" novalidate class="space-y-6">
+              <div>
+                <label for="contact-name" class="block text-xs font-mono uppercase text-content-secondary mb-2">
+                  <span data-i18n="contact.nameLabel">Họ và tên của bạn</span> <span class="text-status-error" aria-hidden="true">*</span>
+                </label>
+                <input type="text" id="contact-name" name="name" required class="w-full px-4 py-3 rounded-xl bg-canvas-elevated border border-border-strong text-content-primary text-sm focus:border-brand-cyan focus:outline-none transition-colors" placeholder="Ví dụ: Hoàng Minh" data-i18n-attr="placeholder:contact.namePlaceholder" aria-describedby="contact-name-error">
+                <span id="contact-name-error" class="hidden text-xs text-status-error mt-1.5 block font-mono"></span>
+              </div>
+
+              <div>
+                <label for="contact-email" class="block text-xs font-mono uppercase text-content-secondary mb-2">
+                  <span data-i18n="contact.emailLabelInput">Địa chỉ Email</span> <span class="text-status-error" aria-hidden="true">*</span>
+                </label>
+                <input type="email" id="contact-email" name="email" required class="w-full px-4 py-3 rounded-xl bg-canvas-elevated border border-border-strong text-content-primary text-sm focus:border-brand-cyan focus:outline-none transition-colors" placeholder="name@company.com" data-i18n-attr="placeholder:contact.emailPlaceholder" aria-describedby="contact-email-error">
+                <span id="contact-email-error" class="hidden text-xs text-status-error mt-1.5 block font-mono"></span>
+              </div>
+
+              <div>
+                <label for="contact-message" class="block text-xs font-mono uppercase text-content-secondary mb-2">
+                  <span data-i18n="contact.messageLabel">Thông điệp hoặc Nội dung Dự án</span> <span class="text-status-error" aria-hidden="true">*</span>
+                </label>
+                <textarea id="contact-message" name="message" rows="4" required class="w-full px-4 py-3 rounded-xl bg-canvas-elevated border border-border-strong text-content-primary text-sm focus:border-brand-cyan focus:outline-none transition-colors resize-y" placeholder="Mô tả ngắn gọn về nhu cầu thiết kế hoặc mục tiêu dự án của bạn..." data-i18n-attr="placeholder:contact.messagePlaceholder" aria-describedby="contact-message-error"></textarea>
+                <span id="contact-message-error" class="hidden text-xs text-status-error mt-1.5 block font-mono"></span>
+              </div>
+
+              <button type="submit" class="btn-magnetic btn-primary w-full py-3.5 text-sm font-bold shadow-neon-cyan" data-cursor="pointer">
+                <span data-i18n="contact.submitBtn">Gửi Đi Lời Nhắn</span>
+                <svg class="w-4 h-4 ml-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       CHÂN TRANG (FOOTER)
+       ========================================================================== -->
+  <footer class="py-12 px-fluid-gutter border-t border-border-subtle bg-canvas-deep" role="contentinfo">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-content-muted">
+      <div>
+        <p data-i18n="footer.copyright">© 2026 Yi Sheng. Tất cả các quyền được bảo lưu.</p>
+        <p class="mt-1 font-mono text-[11px]" data-i18n="footer.a11yNote">Tuân thủ tiêu chuẩn EAA & WCAG 2.2 Cấp độ AA • OKLCH Color Engine</p>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="#hero" class="hover:text-brand-cyan transition-colors" data-cursor="pointer" data-i18n="footer.backToTop">Về đầu trang ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODAL CHI TIẾT DỰ ÁN TRÀN MÀN HÌNH (CASE STUDY FULL-SCREEN OVERLAY)
+       ========================================================================== -->
+  <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div id="project-modal-content" class="w-[95vw] max-w-4xl max-h-[90vh] bg-canvas-deep border border-border-strong rounded-3xl p-6 sm:p-10 overflow-y-auto shadow-2xl relative">
+      
+      <!-- Nút đóng Modal (A11y Accessible Close) -->
+      <button id="modal-close-btn" type="button" class="absolute top-6 right-6 w-11 h-11 rounded-full bg-canvas-surface border border-border-strong hover:border-brand-cyan text-content-primary flex items-center justify-center transition-colors focus:ring-2" aria-label="Đóng hộp thoại chi tiết dự án (Phím Escape)" data-i18n-attr="aria-label:modal.closeAria" data-cursor="pointer">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <!-- Nội dung chi tiết Case Study được inject từ app.js -->
+      <div class="space-y-8 pr-4">
+        <div>
+          <span id="modal-category" class="text-xs font-mono text-brand-cyan uppercase tracking-widest block mb-2">Category • Year</span>
+          <h2 id="modal-title" class="text-fluid-h2 font-bold text-content-primary">Tên Dự Án</h2>
+        </div>
+
+        <!-- Khối thông số tóm tắt -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-2xl bg-canvas-surface border border-border-subtle">
+          <div>
+            <span class="text-xs font-mono text-content-muted" data-i18n="modal.clientLabel">Khách hàng / Tổ chức:</span>
+            <p id="modal-client" class="text-sm font-bold text-content-primary mt-0.5">Nordic Bank</p>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-content-muted" data-i18n="modal.roleLabel">Vai trò thực hiện:</span>
+            <p id="modal-role" class="text-sm font-bold text-content-primary mt-0.5">Lead Architect</p>
+          </div>
+          <div>
+            <span class="text-xs font-mono text-content-muted" data-i18n="modal.impactLabel">Tác động đo lường:</span>
+            <p id="modal-impact" class="text-sm font-bold text-brand-cyan mt-0.5">+140% Dev Velocity</p>
+          </div>
+        </div>
+
+        <!-- Tóm tắt & Bài toán thiết kế -->
+        <div class="space-y-4">
+          <h3 class="text-fluid-h3 font-bold text-content-primary" data-i18n="modal.sec1Heading">1. Tổng Quan & Mục Tiêu</h3>
+          <p id="modal-summary" class="text-sm text-content-secondary leading-relaxed"></p>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-fluid-h3 font-bold text-content-primary" data-i18n="modal.sec2Heading">2. Thách Thức Nghiên Cứu & Trải Nghiệm (UX Challenge)</h3>
+          <p id="modal-challenge" class="text-sm text-content-secondary leading-relaxed"></p>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-fluid-h3 font-bold text-content-primary" data-i18n="modal.sec3Heading">3. Giải Pháp Kỹ Thuật & Kiến Trúc Front-end</h3>
+          <p id="modal-solution" class="text-sm text-content-secondary leading-relaxed"></p>
+        </div>
+
+        <!-- Công nghệ sử dụng -->
+        <div>
+          <h3 class="text-fluid-h3 font-bold text-content-primary mb-3" data-i18n="modal.sec4Heading">4. Công Nghệ & Tiêu Chuẩn Thực Thi</h3>
+          <div id="modal-stack" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Tương tác chính -->
+  <script src="app.js"></script>
+</body>
+</html>
